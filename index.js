@@ -1,8 +1,9 @@
 const config = require("./config/config.js");
 const app = require("./src/config/express.config.js");
-
+require("dotenv").config();
 const http = require("http").Server(app);
 const socketIO = require("socket.io")(http, { cors: { origin: "*   " } });
+const PORT = process.env.PORT || 8001
 
 //event connection of a client from the frontend
 socketIO.on("connection", (socket) => {
@@ -22,7 +23,7 @@ socketIO.on("connection", (socket) => {
     console.log("user disconnected");
   });
 });
-const server_new = http.listen(8001, "0.0.0.0", (err) => {
+const server_new = http.listen(PORT, "0.0.0.0", (err) => {
   if (!err) {
     console.log("server is running on port", process.env.PORT);
   }
